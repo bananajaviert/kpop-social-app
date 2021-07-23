@@ -1,9 +1,9 @@
 import express from 'express'
 
 // Controllers
-import {register_controller} from '../controllers/Auth.js'
+import {register_controller, login_controller} from '../controllers/Auth.js'
 
 export const router = express.Router()
 
 router.post('/register', register_controller)
-// router.post('/login', login_controller)
+router.post('/login', login_controller)

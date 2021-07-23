@@ -7,6 +7,7 @@ import url from 'url'
 
 // Routes
 import {router as auth_router} from './routes/auth.js'
+import {router as users_router} from './routes/private/userList.js'
 
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -32,3 +33,4 @@ mongoose.connect(process.env.ATLAS_URI, {
 })
 
 app.use('/api', auth_router)
+app.use('/api', users_router)

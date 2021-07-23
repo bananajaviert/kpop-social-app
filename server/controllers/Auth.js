@@ -16,9 +16,10 @@ export const register_controller = async (req, res) => {
   const {error} = register_validation(req.body)
   if(error) return res.status(400).json(error.details[0].message)
 
-  const email_exists = User.findOne({email: req.body.email})
+  const email_exists = await User.findOne({email: req.body.email})
   if(email_exists) return res.status(400).json('Email already exists')
 
+  // Encrypt password
   const salt = await bcrypt.genSalt(10)
   const hashed_password = await bcrypt.hash(req.body.password, salt)
 
@@ -37,17 +38,26 @@ export const register_controller = async (req, res) => {
 }
 
 export const login_controller = async (req, res) => {
-  const {error} = login_controller(req.body)
+
+  // Destructure Joi error valdiation
+  const {error} = login_validation(req.body)
   if(error) return res.status(400).json(error.details[0].message)
 
-  const user = User.findOne({email: req.body.email})
+  // check if user exists
+  const user = await User.findOne({email: req.body.email})
   if(!user) return res.status(400).json(`Email doesn't exists`)
 
   const verify_password = await bcrypt.compare(req.body.password, user.password)
   if(!verify_password) return res.status(400).json('Invalid password')
 
   try {
-    // token logic
+    const token = jwt.sign({_id: user._id}, process.env.ACCESS_TOKEN_SECRET)
+    res.header('auth-token', token).json({
+      // Remove once checked
+      message: `Successfully logged in`,
+      token
+    })
+
   } catch(error) {
     res.status(400).json(`Error: ${error}`)
   }
