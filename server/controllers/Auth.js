@@ -1,3 +1,4 @@
+
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
@@ -24,7 +25,7 @@ export const register_controller = async (req, res) => {
   const hashed_password = await bcrypt.hash(req.body.password, salt)
 
   const user = new User({
-    name: req.body.name,
+    username: req.body.username,
     email: req.body.email,
     password: hashed_password
   })

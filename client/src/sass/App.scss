@@ -1,0 +1,11 @@
+// $gradient: linear-gradient(180deg, #13547a 0%, #80d0c7 100%);
+$primary-color: rgb(21, 32, 43);
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  // background-image: $gradient;
+  background-color: $primary-color;
+}

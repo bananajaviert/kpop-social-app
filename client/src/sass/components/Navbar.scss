@@ -1,0 +1,22 @@
+.appBar {
+  box-shadow: none;
+  background-color: teal;
+  border-bottom: 1px solid gainsboro;
+
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+
+    .app-logo {
+      width: 4rem;
+    }
+
+    .register-btn {
+      box-shadow: "none";
+      border: 1px solid white;
+      color: white;
+    }
+  }
+}
