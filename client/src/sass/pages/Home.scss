@@ -1,0 +1,21 @@
+.home {
+  .floating-btn {
+    background-color: teal;
+    color: white;
+    position: fixed;
+    bottom: 2rem;
+    right: 1rem;
+    display: none;
+  }
+  .floating-btn:hover {
+    background-color: rgb(11, 71, 71);
+  }
+}
+
+@media screen and(max-width: 768px) {
+  .home {
+    .floating-btn {
+      display: block;
+    }
+  }
+}

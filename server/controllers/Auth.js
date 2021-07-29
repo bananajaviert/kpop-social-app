@@ -55,7 +55,7 @@ export const login_controller = async (req, res) => {
     const token = jwt.sign({_id: user._id}, process.env.ACCESS_TOKEN_SECRET)
     res.header('auth-token', token).json({
       // Remove once checked
-      message: `Successfully logged in`,
+      id: user._id,
       token
     })
 

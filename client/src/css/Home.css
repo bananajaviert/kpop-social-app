@@ -1,0 +1,1 @@
+.home .floating-btn{background-color:teal;color:white;position:fixed;bottom:2rem;right:1rem;display:none}.home .floating-btn:hover{background-color:#0b4747}@media screen and (max-width: 768px){.home .floating-btn{display:block}}

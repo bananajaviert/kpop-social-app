@@ -1,4 +1,8 @@
-import { useState, useEffect, createContext } from 'react'
+import {
+  useState,
+  useEffect,
+  createContext
+} from 'react'
 import { get_users } from '../api/users'
 
 export const UsersContext = createContext()
@@ -8,7 +12,7 @@ export const UsersProvider = props => {
 
   // Get all users
   useEffect(() => {
-    get_users()
+    get_users(set_users)
   }, [])
 
   return (

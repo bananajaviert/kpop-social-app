@@ -4,50 +4,58 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
+import { useContext, useEffect } from 'react'
 import { UsersProvider } from './utils/context/Users'
+import { AuthContext } from './utils/context/AuthContext'
 
+import ProtectedRoutes from './components/ProtectedRoutes'
 import Login from './components/Auth/Login'
 import Register from './components/Auth/Register'
-import Home from './pages/Home'
+import Home from './pages/private/Home'
+import Friends from './pages/private/Friends'
+
+import { token } from './utils/api/users'
 
 function App() {
+  const [isAuth, setIsAuth] = useContext(AuthContext)
 
   return (
-    <>
-      <div className='app'>
-        <Router>
-          <Switch>
-            <Route
+    <div className='app'>
+      <Router>
+        <Switch>
+          <Route
+            path='/login'
+            render={props => (
+              <Login {...props}
+                isAuth={isAuth}
+                setIsAuth={setIsAuth} />
+            )}
+          />
+
+          <Route
+            path='/register'
+            render={props => (
+              <Register {...props} />
+            )}
+          />
+
+          <UsersProvider>
+            <ProtectedRoutes
               exact
               path='/'
-              render={props => (
-                <Login {...props} />
-              )}
+              isAuth={isAuth}
+              component={Home}
             />
 
-            <Route
-              path='/login'
-              render={props => (
-                <Login {...props} />
-              )}
+            <ProtectedRoutes
+              path='/friends'
+              isAuth={isAuth}
+              component={Friends}
             />
-            <Route
-              path='/register'
-              render={props => (
-                <Register {...props} />
-              )}
-            />
-            <UsersProvider>
-              <Route
-                path='/home'
-                render={props => (
-                  <Home {...props} />
-                )} />
-            </UsersProvider>
-          </Switch>
-        </Router>
-      </div>
-    </>
+          </UsersProvider>
+        </Switch>
+      </Router>
+    </div>
   );
 }
 

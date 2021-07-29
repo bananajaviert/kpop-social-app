@@ -1,3 +1,4 @@
+import '../../css/AuthStyle.css'
 import '../../css/Auth.css'
 import { Link } from 'react-router-dom'
 import {
@@ -38,53 +39,55 @@ const Register = () => {
   }
 
   return (
-    <div className='container'>
-      <h1 style={{ color: 'rgb(0, 80, 80)' }}>
-        Register
-      </h1>
-      <div
-        style={{ display: `${!errors ? 'none' : 'block'}` }}
-        className="error-section">
-        <p>
-          {errors}
+    <div className="auth-pages">
+      <div className='container'>
+        <h1 style={{ color: 'rgb(0, 80, 80)' }}>
+          Register
+        </h1>
+        <div
+          style={{ display: `${!errors ? 'none' : 'block'}` }}
+          className="error-section">
+          <p>
+            {errors}
+          </p>
+        </div>
+        <form
+          className='form'
+          noValidate
+          onSubmit={submit_form}>
+          <TextField
+            value={register_info.username}
+            onChange={e => set_register_info({ ...register_info, username: e.target.value })}
+            label='Username'
+            className='textfield' />
+          <TextField
+            value={register_info.email}
+            onChange={e => set_register_info({ ...register_info, email: e.target.value })}
+            label='Email'
+            type='email'
+            className='textfield' />
+          <TextField
+            value={register_info.password}
+            onChange={e => set_register_info({ ...register_info, password: e.target.value })}
+            label='Password'
+            type='password'
+            className='textfield' />
+          <Button
+            type='submit'
+            variant='contained'
+            disabled={is_logging ? true : false}
+            className={`submit-btn ${is_logging && 'disable'}`}>
+            {is_logging ? 'Creating an account...' : 'Register'}
+          </Button>
+        </form>
+        <p className='register-text'>
+          Already have an account?
+          <Link
+            to='/login'
+            className='register-link'>Login</Link>
         </p>
-      </div>
-      <form
-        className='form'
-        noValidate
-        onSubmit={submit_form}>
-        <TextField
-          value={register_info.username}
-          onChange={e => set_register_info({ ...register_info, username: e.target.value })}
-          label='Username'
-          className='textfield' />
-        <TextField
-          value={register_info.email}
-          onChange={e => set_register_info({ ...register_info, email: e.target.value })}
-          label='Email'
-          type='email'
-          className='textfield' />
-        <TextField
-          value={register_info.password}
-          onChange={e => set_register_info({ ...register_info, password: e.target.value })}
-          label='Password'
-          type='password'
-          className='textfield' />
-        <Button
-          type='submit'
-          variant='contained'
-          disabled={is_logging ? true : false}
-          className={`submit-btn ${is_logging && 'disable'}`}>
-          {is_logging ? 'Creating an account...' : 'Register'}
-        </Button>
-      </form>
-      <p className='register-text'>
-        Already have an account?
-        <Link
-          to='/login'
-          className='register-link'>Login</Link>
-      </p>
-    </div >
+      </div >
+    </div>
   )
 }
 
